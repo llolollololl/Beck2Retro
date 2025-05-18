@@ -12,7 +12,7 @@
         {
             AutomaticMigrationsEnabled = false;
         }
-
+        
         protected override void Seed(Back2Retro.Dal.Back2RetroDbContext context)
         {
             //  This method will be called after migrating to the latest version.
@@ -86,6 +86,7 @@
                      Category = books
                  }
                          );
+
 
 
         }
