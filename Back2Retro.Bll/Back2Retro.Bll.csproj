@@ -46,10 +46,6 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\Back2Retro.Dal\Back2Retro.Dal.csproj">
-      <Project>{29d7d779-8da5-4378-8b9f-094279dbf88d}</Project>
-      <Name>Back2Retro.Dal</Name>
-    </ProjectReference>
     <ProjectReference Include="..\Back2Retro.Entities\Back2Retro.Entities.csproj">
       <Project>{de6d9fd4-11e3-4068-875f-6552dc275cd5}</Project>
       <Name>Back2Retro.Entities</Name>
