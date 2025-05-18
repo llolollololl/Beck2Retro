@@ -22,7 +22,9 @@ namespace Back2Retro.Dal
         {
             using (var db = new Back2RetroDbContext())
             {
-                Product product = db.Products.Find(id);
+                Product product = db.Products
+                                    .Include(p => p.Category)
+                                    .FirstOrDefault(p => p.ProductId == id);
                 return product;
             }
         }

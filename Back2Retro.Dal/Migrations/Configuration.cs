@@ -22,11 +22,11 @@
 
             // Добавляем категории, если их нет
             // Добавляем категории, если их ещё нет
-            
-            
+
+
             context.Categories.AddOrUpdate(
-                x => new { x.CategoryOfProduct},
-                new Category { CategoryOfProduct = "Vinyl & Turntables"},
+                x => new { x.CategoryOfProduct },
+                new Category { CategoryOfProduct = "Vinyl & Turntables" },
                 new Category { CategoryOfProduct = "Vintage Posters" },
                 new Category { CategoryOfProduct = "Retro Clothing" },
                 new Category { CategoryOfProduct = "Antique Accessories" },
@@ -44,7 +44,7 @@
 
             // Добавляем тестовые продукты
             context.Products.AddOrUpdate(
-                x => new {x.ProductName},
+                x => new { x.ProductName },
                  new Product
                  {
                      ProductName = "Sony Vinyl Player 1979",
@@ -88,6 +88,6 @@
                          );
 
 
-                 }
+        }
     }
 }

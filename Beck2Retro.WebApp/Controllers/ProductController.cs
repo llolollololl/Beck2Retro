@@ -153,23 +153,31 @@
                 }
             }
 
-            public ActionResult Edit(int id)
+        public ActionResult Edit(int id)
+        {
+            try
             {
-                try
-                {
-                    Product product = ProductBll.ReadOne(id);
-                    return View(product);
-                }
-                catch (Exception ex)
-                {
-                    ViewBag.ErrorMessage = ex.Message;
-                    return View("Error");
-                }
-            }
+                // Получаем продукт
+                Product product = ProductBll.ReadOne(id);
 
-            [HttpPost]
+                // Получаем список категорий
+                List<Category> categories = CategoryBll.ReadAll();
+
+                // Передаём список категорий в DropDownList через ViewBag.categoryId
+                ViewBag.categoryId = new SelectList(categories, "Id", "CategoryOfProduct", product.Category?.Id);
+
+                return View(product);
+            }
+            catch (Exception ex)
+            {
+                ViewBag.ErrorMessage = ex.Message;
+                return View("Error");
+            }
+        }
+
+        [HttpPost]
             public ActionResult Edit(int id, string productName, string description, decimal price,
-                HttpPostedFileBase image, int categoryId)
+                HttpPostedFileBase image, int? categoryId)
             {
                 string imageName = "unknown.jpg";
 
@@ -180,8 +188,8 @@
                     imageName = Guid.NewGuid() + extension;
                     image.SaveAs(Path.Combine(path, imageName));
                 }
-
-                Category category = new Category { Id = categoryId };
+            //(int)categoryId потому что выше в Edit(стоит ? перед categoryId)
+            Category category = new Category { Id = (int)categoryId };
                 bool productUpdated = ProductBll.Update(id, productName, description, price, imageName, category);
 
                 if (productUpdated)

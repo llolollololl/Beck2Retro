@@ -20,5 +20,10 @@ namespace Back2Retro.Bll
             Category category = CategoryDal.GetCategoryById(id);
             return category;
         }
+
+        public static List<Category> ReadAll()
+        {
+            return GetAll();
+        }
     }
 }

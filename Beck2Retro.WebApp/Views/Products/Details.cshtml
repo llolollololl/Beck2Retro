@@ -37,11 +37,17 @@
         <dt>
             @Html.DisplayNameFor(model => model.Image)
         </dt>
-
         <dd>
-            @Html.DisplayFor(model => model.Image)
+            <img src="~/Content/images/products/@Model.Image" width="200"
+                 alt="Picture of @Model.ProductName" />
         </dd>
 
+        <dt>
+            @Html.DisplayNameFor(model => model.Category.CategoryOfProduct)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Category.CategoryOfProduct)
+        </dd>
     </dl>
 </div>
 <p>
