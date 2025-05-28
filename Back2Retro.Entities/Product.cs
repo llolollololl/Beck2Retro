@@ -25,9 +25,8 @@ namespace Back2Retro.Entities
         [Required(ErrorMessage = "Image URL or file name is required.")]
         [StringLength(255)]
         public string Image { get; set; }
-
-        [Required(ErrorMessage = "Category is required.")]
         public Category Category { get; set; }
+        
 
 
 

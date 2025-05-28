@@ -1,56 +1,92 @@
 ﻿@model Back2Retro.Entities.Product
-
 @{
     ViewBag.Title = "Details";
 }
 
 <h2>Details</h2>
 <p>@ViewBag.Feedback</p>
+
 <div>
     <h4>Product</h4>
     <hr />
     <dl class="dl-horizontal">
-        <dt>
-            @Html.DisplayNameFor(model => model.ProductName)
-        </dt>
+        <dt>@Html.DisplayNameFor(model => model.ProductName)</dt>
+        <dd>@Html.DisplayFor(model => model.ProductName)</dd>
 
+        <dt>@Html.DisplayNameFor(model => model.Description)</dt>
+        <dd>@Html.DisplayFor(model => model.Description)</dd>
+
+        <dt>@Html.DisplayNameFor(model => model.Price)</dt>
+        <dd>@Html.DisplayFor(model => model.Price)</dd>
+
+        <dt>@Html.DisplayNameFor(model => model.Image)</dt>
         <dd>
-            @Html.DisplayFor(model => model.ProductName)
+            <img src="~/Content/images/products/@Model.Image" width="200" alt="Picture of @Model.ProductName" />
         </dd>
 
-        <dt>
-            @Html.DisplayNameFor(model => model.Description)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.Description)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.Price)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.Price)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.Image)
-        </dt>
-        <dd>
-            <img src="~/Content/images/products/@Model.Image" width="200"
-                 alt="Picture of @Model.ProductName" />
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.Category.CategoryOfProduct)
-        </dt>
-        <dd>
-            @Html.DisplayFor(model => model.Category.CategoryOfProduct)
-        </dd>
+        <dt>@Html.DisplayNameFor(model => model.Category.CategoryOfProduct)</dt>
+        <dd>@Html.DisplayFor(model => model.Category.CategoryOfProduct)</dd>
     </dl>
+
+    <!-- Add to Cart button form -->
+    <form action="@Url.Action("AddToCart", "Product", new { id = Model.ProductId })" method="post">
+        <button type="submit" class="btn btn-success">Add to Cart</button>
+    </form>
 </div>
+
 <p>
     @Html.ActionLink("Edit", "Edit", new { id = Model.ProductId }) |
     @Html.ActionLink("Back to List", "Index")
 </p>
+
+<hr />
+
+<h3>Reviews</h3>
+
+@if (ViewBag.Reviews != null && ((List<Back2Retro.Entities.Review>)ViewBag.Reviews).Any())
+{
+    foreach (var r in (List<Back2Retro.Entities.Review>)ViewBag.Reviews)
+    {
+        <div class="card mb-2">
+            <div class="card-body">
+                <strong>@r.UserName</strong> - ⭐ @r.Rating/5
+                <br />
+                <small>@r.DatePosted.ToString("dd.MM.yyyy")</small>
+                <p>@r.Comment</p>
+            </div>
+        </div>
+    }
+}
+else
+{
+    <p>No reviews yet.</p>
+}
+
+<h4>Add a review</h4>
+@using (Html.BeginForm("AddReview", "Products", FormMethod.Post))
+{
+    @Html.Hidden("productId", Model.ProductId)
+
+    <div class="form-group">
+        <label>Name</label>
+        <input name="userName" class="form-control" required />
+    </div>
+
+    <div class="form-group">
+        <label>Rating</label>
+        <select name="rating" class="form-control" required>
+            <option value="">--Select--</option>
+            @for (int i = 1; i <= 5; i++)
+            {
+                <option value="@i">@i</option>
+            }
+        </select>
+    </div>
+
+    <div class="form-group">
+        <label>Comment</label>
+        <textarea name="comment" class="form-control" required></textarea>
+    </div>
+
+    <button type="submit" class="btn btn-primary">Submit</button>
+}

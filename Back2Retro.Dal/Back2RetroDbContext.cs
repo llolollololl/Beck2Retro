@@ -12,6 +12,7 @@ namespace Back2Retro.Dal
     {
         public DbSet<Product> Products { get; set; }
         public DbSet<Category> Categories { get; set; }
+        public DbSet<Review> Reviews { get; set; }
 
         public Back2RetroDbContext() : base(@"Data Source=.\sqlexpress;Initial Catalog=Back2RetroDb;Integrated Security=True")
         {

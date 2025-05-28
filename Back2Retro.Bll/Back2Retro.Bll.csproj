@@ -33,6 +33,7 @@
   <ItemGroup>
     <Reference Include="System" />
     <Reference Include="System.Core" />
+    <Reference Include="System.Web" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="Microsoft.CSharp" />
@@ -41,11 +42,19 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="AppDbContext.cs" />
+    <Compile Include="Beck2RetroDbContext.cs" />
+    <Compile Include="CartServiceBll.cs" />
     <Compile Include="CategoryBll.cs" />
     <Compile Include="ProductBll.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="ReviewBll.cs" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\Back2Retro.Dal\Back2Retro.Dal.csproj">
+      <Project>{29D7D779-8DA5-4378-8B9F-094279DBF88D}</Project>
+      <Name>Back2Retro.Dal</Name>
+    </ProjectReference>
     <ProjectReference Include="..\Back2Retro.Entities\Back2Retro.Entities.csproj">
       <Project>{de6d9fd4-11e3-4068-875f-6552dc275cd5}</Project>
       <Name>Back2Retro.Entities</Name>

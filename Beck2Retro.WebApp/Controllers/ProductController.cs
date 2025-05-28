@@ -1,6 +1,8 @@
 ﻿    using Back2Retro.Bll;
-    using Back2Retro.Entities;
-    using System;
+using Back2Retro.BLL;
+using Back2Retro.Entities;
+using Back2Retro.Models;
+using System;
     using System.Collections.Generic;
     using System.IO;
     using System.Web;
@@ -24,7 +26,7 @@
                 }
             }
 
-            public ActionResult Details(int id)
+            /*public ActionResult Details(int id)
             {
                 try
                 {
@@ -36,7 +38,30 @@
                     ViewBag.ErrorMessage = ex.Message;
                     return View("Error");
                 }
+            }*/
+
+
+
+        public ActionResult Details(int id)
+        {
+            try
+            {
+                Product product = ProductBll.ReadOne(id);
+
+                ReviewService reviewService = new ReviewService();
+                List<Review> reviews = reviewService.GetReviewsForProduct(id);
+
+                ViewBag.Reviews = reviews;
+                return View(product);
             }
+            catch (Exception ex)
+            {
+                ViewBag.ErrorMessage = ex.Message;
+                return View("Error");
+            }
+        }
+
+
 
         /*public ActionResult Create()
          {
@@ -84,6 +109,8 @@
         public ActionResult Create(string productName, string description, decimal price,
             HttpPostedFileBase image, int categoryId)
         {
+            
+
             string imageName = "unknown.jpg";
 
             // Обработка изображения
@@ -203,5 +230,27 @@
 
                 return RedirectToAction("Details", new { id = id });
             }
+
+
+
+        [HttpPost]
+        public ActionResult AddReview(int productId, string userName, string comment, int rating)
+        {
+            var review = new Review
+            {
+                ProductId = productId,
+                UserName = userName,
+                Comment = comment,
+                Rating = rating,
+                DatePosted = DateTime.Now
+            };
+
+            ReviewService service = new ReviewService();
+            service.AddReview(review);
+
+            return RedirectToAction("Details", new { id = productId });
         }
+
+
     }
+}

@@ -85,5 +85,28 @@ namespace Back2Retro.Bll
 
             return false;
         }
+
+
+        // Класс, представляющий бизнес-логику для работы с продуктами
+        public class ProductService
+        {
+            // Приватное поле для доступа к репозиторию (DAL) — взаимодействует с базой данных
+            private readonly ProductRepositoryDal _repo = new ProductRepositoryDal();
+
+            // Метод для получения одного продукта по его идентификатору
+            public Product GetById(int id)
+            {
+                // Вызываем метод репозитория, который достаёт продукт из базы по Id
+                return _repo.GetById(id);
+            }
+
+            // Метод для получения всех продуктов из базы
+            public List<Product> GetAll()
+            {
+                // Вызываем метод репозитория, который возвращает список всех продуктов
+                return _repo.GetAll();
+            }
+        }
+
     }
 }
