@@ -23,7 +23,10 @@
                     <li>@Html.ActionLink("Contact", "Contact", "Home", new { area = "" }, new { @class = "nav-link" })</li>
                     <li>@Html.ActionLink("Product", "Index", "Products", new { area = "" }, new { @class = "nav-link" })</li>
                     <li>@Html.ActionLink("Cart", "Cart", "Product", new { area = "" }, new { @class = "nav-link" })</li>
-
+                    @if (User.IsInRole("Sitebeheerder"))
+                    {
+                    <li>@Html.ActionLink("Role", "Index", "Roles", new { area = "" }, new { @class = "nav-link" })</li>
+                    }
                 </ul>
                  @Html.Partial("_LoginPartial")
             </div>

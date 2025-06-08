@@ -1,0 +1,30 @@
+﻿@model Microsoft.AspNet.Identity.EntityFramework.IdentityRole
+@{
+    ViewBag.Title = "Add Role";
+}
+
+<h2>Add role</h2>
+
+@if (ViewBag.ErrorMessage != null)
+{
+<div>
+    <h2>@ViewBag.ErrorMessage</h2>
+</div>
+}
+
+@using (Html.BeginForm("Create","Roles",FormMethod.Post)) 
+{ 
+    @Html.AntiForgeryToken()
+    @Html.ValidationSummary()
+        
+    <div>
+        Role Name
+    </div>
+    <p>
+        @Html.TextBox("Name")
+    </p>
+
+    <input type="submit" value="Save" class="btn btn-warning">
+
+}
+

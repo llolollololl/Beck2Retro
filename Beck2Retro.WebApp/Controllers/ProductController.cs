@@ -26,22 +26,6 @@ using System;
                 }
             }
 
-            /*public ActionResult Details(int id)
-            {
-                try
-                {
-                    Product product = ProductBll.ReadOne(id);
-                    return View(product);
-                }
-                catch (Exception ex)
-                {
-                    ViewBag.ErrorMessage = ex.Message;
-                    return View("Error");
-                }
-            }*/
-
-
-
         public ActionResult Details(int id)
         {
             try
@@ -62,49 +46,14 @@ using System;
         }
 
 
-
-        /*public ActionResult Create()
-         {
-             return View();
-         }
-
-         [HttpPost]
-         public ActionResult Create(string productName, string description, decimal price,
-             HttpPostedFileBase image, int categoryId)
-         {
-             string imageName = "unknown.jpg";
-
-             if (image != null && (image.ContentType == "image/jpeg" || image.ContentType == "image/png"))
-             {
-                 string path = Server.MapPath("~/Content/images/products/");
-                 string extension = Path.GetExtension(image.FileName);
-                 imageName = Guid.NewGuid() + extension;
-                 image.SaveAs(Path.Combine(path, imageName));
-             }
-
-             Category category = new Category { Id = categoryId };
-             bool productCreated = ProductBll.Create(productName, description, price, imageName, category);
-
-             if (productCreated)
-             {
-                 ViewBag.Feedback = productName + " added.";
-             }
-             else
-             {
-                 ViewBag.Feedback = "Something went wrong - failed to add product.";
-             }
-
-             return View();
-         }*/
-
-
-
+            //CREATE///////////////////////////////////////////////////////
+        [Authorize(Roles = "Winkelbeheerder")]
         public ActionResult Create()
         {
             ViewBag.Categories = new SelectList(CategoryBll.GetAll(), "Id", "CategoryOfProduct");
             return View();
         }
-
+        [Authorize (Roles = "Winkelbeheerder")]
         [HttpPost]
         public ActionResult Create(string productName, string description, decimal price,
             HttpPostedFileBase image, int categoryId)
@@ -148,7 +97,10 @@ using System;
 
             return View();
         }
+        ///////////////////////////////////////////////////////////////
 
+
+        [Authorize(Roles = "Winkelbeheerder")]
         public ActionResult Delete(int id)
             {
                 try
@@ -162,8 +114,8 @@ using System;
                     return View("Error");
                 }
             }
-
-            [HttpPost]
+        [Authorize(Roles = "Winkelbeheerder")]
+        [HttpPost]
             public ActionResult Delete(string id)
             {
                 int productId = Convert.ToInt32(id);
@@ -180,6 +132,10 @@ using System;
                 }
             }
 
+
+
+
+        [Authorize(Roles = "Winkelbeheerder")]
         public ActionResult Edit(int id)
         {
             try
@@ -201,7 +157,7 @@ using System;
                 return View("Error");
             }
         }
-
+        [Authorize(Roles = "Winkelbeheerder")]
         [HttpPost]
             public ActionResult Edit(int id, string productName, string description, decimal price,
                 HttpPostedFileBase image, int? categoryId)
@@ -232,7 +188,7 @@ using System;
             }
 
 
-
+        [Authorize]
         [HttpPost]
         public ActionResult AddReview(int productId, string userName, string comment, int rating)
         {

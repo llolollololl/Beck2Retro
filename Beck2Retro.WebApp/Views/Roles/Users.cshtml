@@ -1,0 +1,33 @@
+﻿@model IEnumerable<Beck2Retro.WebApp.Models.ApplicationUser>
+@{
+    ViewBag.Title = "Users";
+}
+
+<h2>Users</h2>
+
+<table class="table table-striped">
+    <tr>
+        <th>Email</th>
+        <th></th>
+        <th></th>
+    </tr>
+    @foreach (var user in Model)
+            {
+                <tr>
+                    <td>
+                        @user.UserName
+                    </td>
+                    <td>
+                        @using(Html.BeginForm("ManageUserRoles", "Roles", FormMethod.Post))
+                        {
+                            <input type="hidden" id="UserName" name="UserName" value="@user.UserName" />
+                            <input type="submit" value="Manage roles" class="btn btn-primary" />
+                        }
+                    </td>
+                    <td>
+                        @Html.ActionLink("Reset Password", "ResetPassword","Roles", new {id = user.Id}, new { @class ="btn btn-primary" })
+                    </td>
+                </tr>
+            }
+</table>
+

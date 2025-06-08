@@ -43,7 +43,6 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="AppDbContext.cs" />
-    <Compile Include="Beck2RetroDbContext.cs" />
     <Compile Include="CartServiceBll.cs" />
     <Compile Include="CategoryBll.cs" />
     <Compile Include="ProductBll.cs" />

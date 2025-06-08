@@ -5,10 +5,14 @@
 }
 
 <h2>Index</h2>
-
+@{ 
+    if(User.IsInRole("Winkelbeheerder"))
+    { 
 <p>
     @Html.ActionLink("Create New", "Create")
 </p>
+    }
+}
 <table class="table">
     <tr>
         <th>
@@ -41,9 +45,18 @@
             @Html.DisplayFor(modelItem => item.Image)
         </td>
         <td>
-            @Html.ActionLink("Edit", "Edit", new { id=item.ProductId }) |
-            @Html.ActionLink("Details", "Details", new { id=item.ProductId }) |
-            @Html.ActionLink("Delete", "Delete", new { id=item.ProductId })
+            @if (User.IsInRole("Winkelbeheerder"))
+            {
+                @Html.ActionLink("Edit", "Edit", new { id = item.ProductId })
+                @: |
+
+                @Html.ActionLink("Delete", "Delete", new { id = item.ProductId })
+            }
+
+            @if (User.Identity.IsAuthenticated)
+            {
+                @Html.ActionLink("Details", "Details", new { id = item.ProductId })
+            }
         </td>
     </tr>
 }
