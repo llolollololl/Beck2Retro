@@ -1,5 +1,108 @@
 ﻿@model List<Back2Retro.Entities.CartItem>
 
+@{
+    ViewBag.Title = "Shopping Cart";
+}
+
+<style>
+    body {
+        background-color: #1a1a1a;
+        color: #fbeec1;
+        font-family: 'Courier New', Courier, monospace;
+    }
+
+    h2, h3 {
+        color: #ffb703;
+        text-transform: uppercase;
+    }
+
+    .retro-table {
+        width: 100%;
+        border-collapse: collapse;
+        margin-top: 20px;
+    }
+
+        .retro-table th, .retro-table td {
+            padding: 12px;
+            border: 2px solid #fbeec1;
+            text-align: left;
+        }
+
+        .retro-table th {
+            background-color: #e59500;
+            color: #1a1a1a;
+        }
+
+        .retro-table td {
+            background-color: #2f4f4f;
+            color: #fffacd;
+        }
+
+    .btn-retro {
+        background-color: #f77f00;
+        color: black;
+        font-weight: bold;
+        border: none;
+        padding: 8px 14px;
+        border-radius: 5px;
+        text-decoration: none;
+        transition: 0.3s;
+        display: inline-block;
+    }
+
+        .btn-retro:hover {
+            background-color: #c1440e;
+            color: white;
+        }
+
+    .btn-danger {
+        background-color: #dc3545;
+        color: white;
+        border: none;
+        padding: 8px 14px;
+        border-radius: 5px;
+        font-weight: bold;
+    }
+
+        .btn-danger:hover {
+            background-color: #a71d2a;
+        }
+
+    .discount-form {
+        margin-top: 20px;
+        background-color: #2f4f4f;
+        padding: 20px;
+        border: 2px solid #e59500;
+        border-radius: 10px;
+        max-width: 500px;
+    }
+
+    .form-control {
+        background-color: #1a1a1a;
+        color: #fffacd;
+        border: 1px solid #e59500;
+        padding: 6px;
+        border-radius: 4px;
+    }
+
+    label {
+        font-weight: bold;
+        color: #fbeec1;
+        display: block;
+        margin-bottom: 6px;
+    }
+
+    .total-line {
+        margin-top: 20px;
+        font-size: 20px;
+    }
+
+    .text-success {
+        color: #77dd77;
+        margin-top: 10px;
+    }
+</style>
+
 <h2>Shopping Cart</h2>
 
 @if (Model.Count == 0)
@@ -8,7 +111,7 @@
 }
 else
 {
-    <table class="table">
+    <table class="retro-table">
         <thead>
             <tr>
                 <th>Product</th>
@@ -27,25 +130,26 @@ else
                     <td>€@item.Product.Price</td>
                     <td>€@(item.Product.Price * item.Quantity)</td>
                     <td>
-                        <a href="@Url.Action("RemoveFromCart", "Product", new { id = item.Product.ProductId })" class="btn btn-danger btn-sm">Remove</a>
+                        <a href="@Url.Action("RemoveFromCart", "Product", new { id = item.Product.ProductId })" class="btn-danger">Remove</a>
                     </td>
                 </tr>
             }
         </tbody>
     </table>
 
-    <form method="post" action="@Url.Action("ApplyDiscount", "Product")" class="form-inline">
-        <div class="form-group">
+    <div class="discount-form">
+        <form method="post" action="@Url.Action("ApplyDiscount", "Product")">
             <label for="discountCode">Enter Discount Code:</label>
             <input type="text" name="discountCode" id="discountCode" class="form-control" />
-        </div>
-        <button type="submit" class="btn btn-primary">Apply</button>
-    </form>
+            <br />
+            <button type="submit" class="btn-retro">Apply</button>
+        </form>
 
+        @if (ViewBag.DiscountMessage != null)
+        {
+            <p class="text-success">@ViewBag.DiscountMessage</p>
+        }
+    </div>
 
-    if (ViewBag.DiscountMessage != null)
-    {
-        <p style="color: green;">@ViewBag.DiscountMessage</p>
-    }
-    <h3>Total: €@ViewBag.Total</h3>
+    <h3 class="total-line">Total: €@ViewBag.Total</h3>
 }

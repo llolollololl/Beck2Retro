@@ -7,13 +7,13 @@ namespace Back2Retro.Dal.Migrations
     using System.Resources;
     
     [GeneratedCode("EntityFramework.Migrations", "6.5.1")]
-    public sealed partial class Review : IMigrationMetadata
+    public sealed partial class EntitiesProductCategoryId : IMigrationMetadata
     {
-        private readonly ResourceManager Resources = new ResourceManager(typeof(Review));
+        private readonly ResourceManager Resources = new ResourceManager(typeof(EntitiesProductCategoryId));
         
         string IMigrationMetadata.Id
         {
-            get { return "202505282307046_Review"; }
+            get { return "202506151711464_Entities.Product.CategoryId"; }
         }
         
         string IMigrationMetadata.Source

@@ -1,43 +1,117 @@
 ﻿@model Back2Retro.Entities.Product
+
 @{
     ViewBag.Title = "Details";
 }
 
-<h2>Details</h2>
+<style>
+    body {
+        background-color: #1a1a1a;
+        color: #fbeec1;
+        font-family: 'Courier New', Courier, monospace;
+    }
+
+    h2, h3, h4 {
+        color: #ffb703;
+        text-transform: uppercase;
+    }
+
+    .retro-section {
+        margin-bottom: 30px;
+    }
+
+    .retro-image {
+        border: 2px solid #e59500;
+        padding: 5px;
+        background-color: #2f4f4f;
+        width: 200px;
+    }
+
+    .retro-button {
+        display: inline-block;
+        background-color: #f77f00;
+        color: black;
+        padding: 10px 20px;
+        margin: 10px 0;
+        text-decoration: none;
+        font-weight: bold;
+        border-radius: 5px;
+        transition: 0.3s;
+    }
+
+        .retro-button:hover {
+            background-color: #c1440e;
+            color: #fff;
+        }
+
+    .card {
+        background-color: #2f4f4f;
+        border: 2px solid #e59500;
+        border-radius: 8px;
+        padding: 10px;
+        margin-bottom: 10px;
+        color: #fffacd;
+    }
+
+    label, .form-control {
+        color: #fffacd;
+    }
+
+    .form-control {
+        background-color: #1a1a1a;
+        border: 1px solid #e59500;
+    }
+
+    .btn-primary {
+        background-color: #f77f00;
+        border: none;
+    }
+
+        .btn-primary:hover {
+            background-color: #c1440e;
+        }
+
+    .btn-success {
+        background-color: #77dd77;
+        border: none;
+    }
+
+        .btn-success:hover {
+            background-color: #46c646;
+        }
+</style>
+
+<h2>Product Details</h2>
 <p>@ViewBag.Feedback</p>
 
-<div>
-    <h4>Product</h4>
+<div class="retro-section">
+    <h4>@Model.ProductName</h4>
     <hr />
-    <dl class="dl-horizontal">
-        <dt>@Html.DisplayNameFor(model => model.ProductName)</dt>
-        <dd>@Html.DisplayFor(model => model.ProductName)</dd>
+    <dl>
+        <dt>Description</dt>
+        <dd>@Model.Description</dd>
 
-        <dt>@Html.DisplayNameFor(model => model.Description)</dt>
-        <dd>@Html.DisplayFor(model => model.Description)</dd>
+        <dt>Price</dt>
+        <dd>€@Model.Price</dd>
 
-        <dt>@Html.DisplayNameFor(model => model.Price)</dt>
-        <dd>@Html.DisplayFor(model => model.Price)</dd>
-
-        <dt>@Html.DisplayNameFor(model => model.Image)</dt>
+        <dt>Image</dt>
         <dd>
-            <img src="~/Content/images/products/@Model.Image" width="200" alt="Picture of @Model.ProductName" />
+            <img class="retro-image" src="@Url.Content("~/Content/images/products/" + Model.Image)" alt="Picture of @Model.ProductName" />
         </dd>
 
         <dt>@Html.DisplayNameFor(model => model.Category.CategoryOfProduct)</dt>
         <dd>@Html.DisplayFor(model => model.Category.CategoryOfProduct)</dd>
     </dl>
 
-    <!-- Add to Cart button form -->
     <form action="@Url.Action("AddToCart", "Product", new { id = Model.ProductId })" method="post">
         <button type="submit" class="btn btn-success">Add to Cart</button>
     </form>
-</div>
 
-<p>
-    @Html.ActionLink("Edit", "Edit", new { id = Model.ProductId }) |
-    @Html.ActionLink("Back to List", "Index")
-</p>
+    <p>
+        @Html.ActionLink("Edit", "Edit", new { id = Model.ProductId }, new { @class = "retro-button" }) |
+        @Html.ActionLink("Back to List", "Index", null, new { @class = "retro-button" })
+    </p>
+</div>
 
 <hr />
 
@@ -47,10 +121,9 @@
 {
     foreach (var r in (List<Back2Retro.Entities.Review>)ViewBag.Reviews)
     {
-        <div class="card mb-2">
-            <div class="card-body">
-                <strong>@r.UserName</strong> - ⭐ @r.Rating/5
-                <br />
+        <div class="card">
+            <div>
+                <strong>@r.UserName</strong> - ⭐ @r.Rating/5<br />
                 <small>@r.DatePosted.ToString("dd.MM.yyyy")</small>
                 <p>@r.Comment</p>
             </div>

@@ -3,7 +3,7 @@
     using System;
     using System.Data.Entity.Migrations;
     
-    public partial class Review : DbMigration
+    public partial class EntitiesProductCategoryId : DbMigration
     {
         public override void Up()
         {

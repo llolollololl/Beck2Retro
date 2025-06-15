@@ -4,76 +4,142 @@
     ViewBag.Title = "Edit";
 }
 
-<h2>Edit</h2>
+<style>
+    body {
+        background-color: #1a1a1a;
+        color: #fbeec1;
+        font-family: 'Courier New', Courier, monospace;
+    }
 
+    h2 {
+        color: #ffb703;
+        text-transform: uppercase;
+        margin-bottom: 20px;
+    }
 
-@using (Html.BeginForm())
+    .form-horizontal {
+        background-color: #2f4f4f;
+        padding: 25px;
+        border: 2px solid #e59500;
+        border-radius: 10px;
+        max-width: 700px;
+        margin-bottom: 30px;
+    }
+
+    .form-group label {
+        color: #fbeec1;
+        font-weight: bold;
+    }
+
+    .form-control {
+        background-color: #1a1a1a;
+        color: #fffacd;
+        border: 1px solid #e59500;
+        border-radius: 5px;
+        padding: 8px;
+    }
+
+        .form-control:focus {
+            border-color: #ffb703;
+            outline: none;
+            box-shadow: 0 0 5px #ffb703;
+        }
+
+    .btn-default {
+        background-color: #f77f00;
+        color: black;
+        font-weight: bold;
+        border: none;
+        padding: 10px 20px;
+        border-radius: 5px;
+        transition: 0.3s;
+    }
+
+        .btn-default:hover {
+            background-color: #c1440e;
+            color: white;
+        }
+
+    .retro-button {
+        display: inline-block;
+        background-color: #f77f00;
+        color: black;
+        padding: 10px 20px;
+        margin-top: 20px;
+        text-decoration: none;
+        font-weight: bold;
+        border-radius: 5px;
+        transition: 0.3s;
+    }
+
+        .retro-button:hover {
+            background-color: #c1440e;
+            color: #fff;
+        }
+
+    .text-danger {
+        color: #ff6b6b;
+    }
+
+    .preview {
+        margin-top: 10px;
+        border: 2px solid #e59500;
+        width: 150px;
+    }
+</style>
+
+<h2>Edit Product</h2>
+
+@using (Html.BeginForm("Edit", "Products", FormMethod.Post, new { enctype = "multipart/form-data" }))
 {
     @Html.AntiForgeryToken()
-    
-<div class="form-horizontal">
-    <h4>Product</h4>
-    <hr />
-    @Html.ValidationSummary(true, "", new { @class = "text-danger" })
     @Html.HiddenFor(model => model.ProductId)
 
-    <div class="form-group">
-        @Html.LabelFor(model => model.ProductName, htmlAttributes: new { @class = "control-label col-md-2" })
-        <div class="col-md-10">
-            @Html.EditorFor(model => model.ProductName, new { htmlAttributes = new { @class = "form-control" } })
+    <div class="form-horizontal">
+        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+
+        <div class="form-group">
+            <label>Product Name</label>
+            @Html.TextBoxFor(model => model.ProductName, new { @class = "form-control", required = "required" })
             @Html.ValidationMessageFor(model => model.ProductName, "", new { @class = "text-danger" })
         </div>
-    </div>
 
-    <div class="form-group">
-        @Html.LabelFor(model => model.Description, htmlAttributes: new { @class = "control-label col-md-2" })
-        <div class="col-md-10">
-            @Html.EditorFor(model => model.Description, new { htmlAttributes = new { @class = "form-control" } })
+        <div class="form-group">
+            <label>Description</label>
+            @Html.TextAreaFor(model => model.Description, new { @class = "form-control", required = "required" })
             @Html.ValidationMessageFor(model => model.Description, "", new { @class = "text-danger" })
         </div>
-    </div>
 
-    <div class="form-group">
-        @Html.LabelFor(model => model.Price, htmlAttributes: new { @class = "control-label col-md-2" })
-        <div class="col-md-10">
-            @Html.EditorFor(model => model.Price, new { htmlAttributes = new { @class = "form-control" } })
+        <div class="form-group">
+            <label>Price</label>
+            @Html.TextBoxFor(model => model.Price, new { @class = "form-control", type = "number", step = "0.01", required = "required" })
             @Html.ValidationMessageFor(model => model.Price, "", new { @class = "text-danger" })
         </div>
-    </div>
 
-    <div class="form-group">
-        @Html.LabelFor(model => model.Image, htmlAttributes: new { @class = "control-label col-md-2" })
-        <div class="col-md-10">
-            @Html.EditorFor(model => model.Image, new { htmlAttributes = new { @class = "form-control" } })
-            @Html.ValidationMessageFor(model => model.Image, "", new { @class = "text-danger" })
+        <div class="form-group">
+            <label>Current Image</label><br />
+            <img src="@Url.Content("~/Content/images/products/" + Model.Image)" class="preview" alt="Current Image" />
         </div>
-    </div>
 
-    @*<div class="form-group">
-            @Html.Label("Category", htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.DropDownList("categoryId", (SelectList)ViewBag.Categories, "Select a category", new { @class = "form-control" })
-                @Html.ValidationMessage("categoryId", "", new { @class = "text-danger" })
-            </div>
-        </div>*@
-    <div class="form-group">
-        @Html.Label("Category", htmlAttributes: new { @class = "control-label col-md-2" })
-        <div class="col-md-10">
+        <div class="form-group">
+            <label>Upload New Image (optional)</label>
+            <input type="file" name="newImage" class="form-control" accept="image/jpeg,image/png" />
+        </div>
+
+        <div class="form-group">
+            <label>Category</label>
             @Html.DropDownList("categoryId", (SelectList)ViewBag.Categories, "Select a category", new { @class = "form-control" })
             @Html.ValidationMessage("categoryId", "", new { @class = "text-danger" })
         </div>
-    </div>
 
-    <div class="form-group">
-        <div class="col-md-offset-2 col-md-10">
+        <div class="form-group">
             <input type="submit" value="Save" class="btn btn-default" />
         </div>
     </div>
-</div>
 }
 
 <div>
-    @Html.ActionLink("Back to List", "Index")
+    @Html.ActionLink("Back to List", "Index", null, new { @class = "retro-button" })
 </div>
 
 @section Scripts {

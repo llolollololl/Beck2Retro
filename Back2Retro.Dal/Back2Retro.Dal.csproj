@@ -53,9 +53,9 @@
   <ItemGroup>
     <Compile Include="Back2RetroDbContext.cs" />
     <Compile Include="CategoryDal.cs" />
-    <Compile Include="Migrations\202505282307046_Review.cs" />
-    <Compile Include="Migrations\202505282307046_Review.Designer.cs">
-      <DependentUpon>202505282307046_Review.cs</DependentUpon>
+    <Compile Include="Migrations\202506151711464_Entities.Product.CategoryId.cs" />
+    <Compile Include="Migrations\202506151711464_Entities.Product.CategoryId.Designer.cs">
+      <DependentUpon>202506151711464_Entities.Product.CategoryId.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="ProductDal.cs" />
@@ -74,8 +74,8 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Migrations\202505282307046_Review.resx">
-      <DependentUpon>202505282307046_Review.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\202506151711464_Entities.Product.CategoryId.resx">
+      <DependentUpon>202506151711464_Entities.Product.CategoryId.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

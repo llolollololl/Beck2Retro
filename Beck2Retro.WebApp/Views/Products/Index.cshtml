@@ -1,64 +1,114 @@
 ﻿@model IEnumerable<Back2Retro.Entities.Product>
 
 @{
-    ViewBag.Title = "Index";
+    ViewBag.Title = "Back2Retro Shop";
 }
 
-<h2>Index</h2>
-@{ 
-    if(User.IsInRole("Winkelbeheerder"))
-    { 
-<p>
-    @Html.ActionLink("Create New", "Create")
-</p>
+<style>
+    body {
+        background-color: #1a1a1a;
+        color: #fbeec1;
+        font-family: 'Courier New', Courier, monospace;
     }
+
+    h2 {
+        font-size: 36px;
+        color: #c1440e;
+        text-transform: uppercase;
+        margin-bottom: 30px;
+    }
+
+    .retro-table {
+        width: 100%;
+        border-collapse: collapse;
+        margin-top: 20px;
+    }
+
+        .retro-table th, .retro-table td {
+            padding: 16px;
+            border: 2px solid #fbeec1;
+            text-align: left;
+        }
+
+        .retro-table th {
+            background-color: #e59500;
+            color: #1a1a1a;
+            font-size: 18px;
+        }
+
+        .retro-table td {
+            background-color: #2f4f4f;
+            color: #fffacd;
+        }
+
+    .retro-button {
+        display: inline-block;
+        background-color: #f77f00;
+        color: black;
+        padding: 10px 20px;
+        margin: 10px 0;
+        text-decoration: none;
+        font-weight: bold;
+        border-radius: 5px;
+        transition: 0.3s;
+    }
+
+        .retro-button:hover {
+            background-color: #c1440e;
+            color: #fff;
+        }
+
+    .admin-options {
+        font-size: 14px;
+    }
+
+    .logo-title {
+        font-size: 48px;
+        font-weight: bold;
+        color: #ffb703;
+        margin-bottom: 10px;
+    }
+</style>
+
+
+<div class="logo-title">Back 2 Retro</div>
+<h2>Our Collection</h2>
+
+@if (User.IsInRole("Winkelbeheerder"))
+{
+    <p>
+        @Html.ActionLink("Create New", "Create", null, new { @class = "retro-button" })
+    </p>
 }
-<table class="table">
+
+<table class="retro-table">
     <tr>
-        <th>
-            @Html.DisplayNameFor(model => model.ProductName)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Description)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Price)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Image)
-        </th>
-        <th></th>
+        <th>@Html.DisplayNameFor(model => model.ProductName)</th>
+        <th>@Html.DisplayNameFor(model => model.Description)</th>
+        <th>@Html.DisplayNameFor(model => model.Price)</th>
+        <th>@Html.DisplayNameFor(model => model.Image)</th>
+        <th>Actions</th>
     </tr>
 
-@foreach (var item in Model) {
-    <tr>
-        <td>
-            @Html.DisplayFor(modelItem => item.ProductName)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Description)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Price)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Image)
-        </td>
-        <td>
-            @if (User.IsInRole("Winkelbeheerder"))
-            {
-                @Html.ActionLink("Edit", "Edit", new { id = item.ProductId })
-                @: |
-
-                @Html.ActionLink("Delete", "Delete", new { id = item.ProductId })
-            }
-
-            @if (User.Identity.IsAuthenticated)
-            {
-                @Html.ActionLink("Details", "Details", new { id = item.ProductId })
-            }
-        </td>
-    </tr>
-}
-
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>@Html.DisplayFor(modelItem => item.ProductName)</td>
+            <td>@Html.DisplayFor(modelItem => item.Description)</td>
+            <td>€@Html.DisplayFor(modelItem => item.Price)</td>
+            <td>
+                <img src="@Url.Content("~/Content/images/products/" + item.Image)" alt="Product Image" width="100" />
+            </td>
+            <td class="admin-options">
+                @Html.ActionLink("Details", "Details", new { id = item.ProductId }, new { @class = "retro-button" })
+                @if (User.IsInRole("Winkelbeheerder"))
+                {
+                    <br />
+                    @Html.ActionLink("Edit", "Edit", new { id = item.ProductId }, new { @class = "retro-button" })
+                    <br />
+                    @Html.ActionLink("Delete", "Delete", new { id = item.ProductId }, new { @class = "retro-button" })
+                }
+            </td>
+        </tr>
+    }
 </table>

@@ -1,33 +1,61 @@
 ﻿@{
-    ViewBag.Title = "Home Page";
+    ViewBag.Title = "Welkom bij Back2Retro";
 }
 
-<main>
-    <section class="row" aria-labelledby="aspnetTitle">
-        <h1 id="title">ASP.NET</h1>
-        <p class="lead">ASP.NET is a free web framework for building great Web sites and Web applications using HTML, CSS and JavaScript.</p>
-        <p><a href="https://asp.net" class="btn btn-primary btn-md">Learn more &raquo;</a></p>
-    </section>
+<style>
+    body {
+        background-color: #1a1a1a;
+        color: #fbeec1;
+        font-family: 'Courier New', Courier, monospace;
+    }
 
-    <div class="row">
-        <section class="col-md-4" aria-labelledby="gettingStartedTitle">
-            <h2 id="gettingStartedTitle">Getting started</h2>
-            <p>
-                ASP.NET MVC gives you a powerful, patterns-based way to build dynamic websites that
-                enables a clean separation of concerns and gives you full control over markup
-                for enjoyable, agile development.
-            </p>
-            <p><a class="btn btn-outline-dark" href="https://go.microsoft.com/fwlink/?LinkId=301865">Learn more &raquo;</a></p>
-        </section>
-        <section class="col-md-4" aria-labelledby="librariesTitle">
-            <h2 id="librariesTitle">Get more libraries</h2>
-            <p>NuGet is a free Visual Studio extension that makes it easy to add, remove, and update libraries and tools in Visual Studio projects.</p>
-            <p><a class="btn btn-outline-dark" href="https://go.microsoft.com/fwlink/?LinkId=301866">Learn more &raquo;</a></p>
-        </section>
-        <section class="col-md-4" aria-labelledby="hostingTitle">
-            <h2 id="hostingTitle">Web Hosting</h2>
-            <p>You can easily find a web hosting company that offers the right mix of features and price for your applications.</p>
-            <p><a class="btn btn-outline-dark" href="https://go.microsoft.com/fwlink/?LinkId=301867">Learn more &raquo;</a></p>
-        </section>
-    </div>
+    h1, h2 {
+        color: #ffb703;
+        text-transform: uppercase;
+    }
+
+    .intro-section {
+        padding: 40px;
+        background-color: #2f4f4f;
+        border: 2px solid #e59500;
+        border-radius: 10px;
+        margin-bottom: 40px;
+    }
+
+    .retro-button {
+        display: inline-block;
+        background-color: #f77f00;
+        color: black;
+        padding: 12px 24px;
+        margin-top: 20px;
+        text-decoration: none;
+        font-weight: bold;
+        border-radius: 6px;
+        transition: 0.3s;
+    }
+
+        .retro-button:hover {
+            background-color: #c1440e;
+            color: #fff;
+        }
+
+    .story {
+        font-size: 18px;
+        line-height: 1.6;
+    }
+</style>
+
+<main>
+    <section class="intro-section">
+        <h1>Welkom bij Back2Retro</h1>
+        <p class="story">
+            Het idee voor Back2Retro ontstond op een regenachtige avond in België, toen ik door mijn oude spelcollectie bladerde.
+            De nostalgie, de geluiden, de pixels – alles bracht herinneringen terug aan een tijd waarin gamen puur plezier was.
+            Toen dacht ik: "Waarom zou ik dit gevoel niet delen met anderen?"
+            <br /><br />
+            Zo werd Back2Retro geboren – een plek voor liefhebbers van retro consoles, vintage games en klassieke vibes.
+            Hier vind je niet alleen producten, maar een stukje geschiedenis dat je kunt aanraken.
+        </p>
+        <a href="@Url.Action("Index", "Products")" class="retro-button">Bekijk onze collectie</a>
+    </section>
 </main>
